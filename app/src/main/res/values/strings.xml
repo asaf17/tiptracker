@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Tip Tracker</string>
+    <string name="view_log">View Log</string>
+
+    <string-array name="typeArray">
+        <item>Credit</item>
+        <item>Cash</item>
+    </string-array>
+
+</resources>
