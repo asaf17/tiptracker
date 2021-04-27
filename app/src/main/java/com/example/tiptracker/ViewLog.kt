@@ -100,7 +100,7 @@ class ViewLog : AppCompatActivity() {
         //cashTipsInput = findSumFloat(cashTipsInput).toString()
         cashValue.setText("$" + cashTipsDouble.toString())
 
-        val creditTip = Regex(":TIPC:(.*?):CHARGE:")
+        val creditTip = Regex(":TIPC:(.*?):TIPM:")
         val creditTipMatches = creditTip.findAll(fileText)
         var creditTipsInput = creditTipMatches.map { it.groupValues[1] }.joinToString().replace(", ", "+")
         var creditTipsDouble = findSumFloat(creditTipsInput)
@@ -117,13 +117,13 @@ class ViewLog : AppCompatActivity() {
         var numDelsInput = numDelsChargesMatches.map { it.groupValues[1] }.joinToString().replace(", ", "+")
         val numDelChargesDouble = findSumFloat(numDelsInput)
 
-        val totalCashOrder = Regex(":OPRICEM:(.*?):TIPM:")
+        val totalCashOrder = Regex(":OPRICEM:(.*?):TIPC:")
         val totalCashOrderMatches = totalCashOrder.findAll(fileText)
         var totalCashOrderInput = totalCashOrderMatches.map { it.groupValues[1] }.joinToString().replace(", ", "+")
         val totalCashOrderDouble = findSumFloat(totalCashOrderInput)
         totalCashOrders.setText("$" + totalCashOrderDouble.toString())
 
-        val totalCreditTips = Regex(":TIPC:(.*?):CHARGE:")
+        val totalCreditTips = Regex(":TIPC:(.*?):TIPM:")
         val totalCreditTipsMatches = totalCreditTips.findAll(fileText)
         var totalCreditTipsInput = totalCreditTipsMatches.map { it.groupValues[1] }.joinToString().replace(", ", "+")
         val totalCreditTipsDouble = findSumFloat(totalCreditTipsInput)
@@ -136,7 +136,7 @@ class ViewLog : AppCompatActivity() {
 
         val valuesRegex = Regex("ADDRESS:(.*?):END:")
         val valuesMatches = valuesRegex.findAll(fileText)
-        var valuesInput = valuesMatches.map { it.groupValues[1] }.joinToString().replace(",", "").replace(":OTYPEM:", " - ").replace(":OTYPEC:", " - ").replace(":OPRICEM:", " - Order:$").replace(":OPRICEC:", " - Order:$").replace(":TIPM:", " - Tip:$").replace(":TIPC:", " - Tip:$").replace(":CHARGE:", " - Charge:$").replace(":STOP:","\n");
+        var valuesInput = valuesMatches.map { it.groupValues[1] }.joinToString().replace(",", "").replace(":OTYPEM:", " - ").replace(":OTYPEC:", " - ").replace(":OPRICEM:", " - Order:$").replace(":OPRICEC:", " - Order:$").replace(":TIPM:", " - Cash Tip:$").replace(":TIPC:", " - Credit Tip:$").replace(":TIPM:", " - Cash Tip:$").replace(":CHARGE:", " - Charge:$").replace(":STOP:","\n");
         values.setText(" " + valuesInput)
 
     }

@@ -42,8 +42,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:maxLines="1"
-        android:text="Address:"
-        android:nextFocusForward="@id/typeSpinner"/>
+        android:text="Address:" />
 
     <EditText
         android:id="@+id/addressInput"
@@ -53,13 +52,14 @@
         android:background="@color/white"
         android:ems="5"
         android:gravity="center"
+        android:hint="Input Address"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:inputType="textCapWords"
-        android:hint="Input Address" />
+        android:nextFocusForward="@id/priceInput"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,35 +104,65 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
+        android:layout_weight="2"
         android:orientation="horizontal">
 
 
-        <TextView
-            android:id="@+id/typeInputText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="20"
-            android:background="@color/white"
-            android:ems="5"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:inputType="textCapWords"
-            android:text="Order Type:"/>
+<!--        <TextView-->
+<!--            android:id="@+id/typeInputText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="20"-->
+<!--            android:background="@color/white"-->
+<!--            android:ems="5"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="25sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:maxLines="1"-->
+<!--            android:inputType="textCapWords"-->
+<!--            android:text="Order Type:"/>-->
 
-        <Spinner
-            android:id="@+id/typeSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="20"
-            android:gravity="center"
-            android:textAlignment="textEnd"
-            android:nextFocusForward="@id/priceInput"
-            />
+<!--        <Spinner-->
+<!--            android:id="@+id/typeSpinner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="20"-->
+<!--            android:gravity="center"-->
+<!--            android:textAlignment="textEnd"-->
+<!--            android:nextFocusForward="@id/priceInput"-->
+<!--            />-->
 
+        <RadioGroup
+            android:id="@+id/orderRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:orientation="horizontal"
+            android:paddingLeft="50dp">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioCred"
+                android:text="@string/credit_type"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:paddingRight="85dp">
+
+            </RadioButton>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioCash"
+                android:text="@string/cash_type"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold">
+
+            </RadioButton>
+
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
@@ -170,7 +200,7 @@
             android:maxLines="1"
             android:lines="1"
             android:singleLine="true"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:hint="0"
             android:nextFocusForward="@id/tipInput"/>
 
@@ -182,6 +212,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="20"
         android:orientation="horizontal"
+        android:id="@+id/creditTipLayout"
         >
 
 
@@ -213,9 +244,53 @@
             android:maxLines="1"
             android:lines="1"
             android:singleLine="true"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:hint="0"
+            android:text="0"
             android:nextFocusForward="@id/addItem"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:id="@+id/cashTipAmountText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="@color/white"
+            android:ems="5"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:text="Cash Tip Amount:"/>
+
+        <EditText
+            android:id="@+id/cashTipInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="@color/white"
+            android:ems="5"
+            android:gravity="center"
+            android:hint="0"
+            android:inputType="numberDecimal"
+            android:lines="1"
+            android:maxLines="1"
+            android:nextFocusForward="@id/addItem"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="0"/>
 
     </LinearLayout>
 

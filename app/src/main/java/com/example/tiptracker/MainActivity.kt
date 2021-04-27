@@ -14,7 +14,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.material.textfield.TextInputEditText
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,6 +67,20 @@ class MainActivity : AppCompatActivity() {
                     myCalendar[Calendar.DAY_OF_MONTH]).show();
             }
         })
+
+        val cashRadio: RadioButton = findViewById<RadioButton>(R.id.radioCash)
+        val radioGroup = findViewById<View>(R.id.orderRadio) as RadioGroup
+        radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+                if(cashRadio.isChecked){
+                    hideCashLayout();
+                }
+                else{
+                    showCashLayout();
+                }
+            }
+        })
+
 
     }
 
@@ -178,15 +191,15 @@ class MainActivity : AppCompatActivity() {
         val itemsInputted = matches.map { it.groupValues[0] }.joinToString()
         //setValues(itemsInputted)
 
-        val typeSpinner: Spinner = findViewById(R.id.typeSpinner)
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.typeArray,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_list_item_checked)
-            typeSpinner.adapter = adapter
-        }
+//        val typeSpinner: Spinner = findViewById(R.id.typeSpinner)
+//        ArrayAdapter.createFromResource(
+//            this,
+//            R.array.typeArray,
+//            android.R.layout.simple_spinner_item
+//        ).also { adapter ->
+//            adapter.setDropDownViewResource(android.R.layout.simple_list_item_checked)
+//            typeSpinner.adapter = adapter
+//        }
     }
 
     /**
@@ -223,32 +236,58 @@ class MainActivity : AppCompatActivity() {
         val dateValue: String = date.text.toString()
         val address: EditText = findViewById(R.id.addressInput);
         val deliveryCharge: EditText = findViewById(R.id.ratePerDeliveryInput);
-        val typeSpinner: Spinner = findViewById(R.id.typeSpinner);
-        val orderType = typeSpinner.selectedItem.toString()
+        //val typeSpinner: Spinner = findViewById(R.id.typeSpinner);
+        //val orderType = typeSpinner.selectedItem.toString()
+        val radioButtonCash: RadioButton = findViewById(R.id.radioCash)
+        val radioButtonCred: RadioButton = findViewById(R.id.radioCred)
+        val radioGroup: RadioGroup = findViewById(R.id.orderRadio);
+        //var selectedID = radioGroup.checkedRadioButtonId
+        var orderType = ""
+        if (radioButtonCash.isChecked) {
+            orderType = radioButtonCash.text.toString()
+        } else if (radioButtonCred.isChecked) {
+            orderType = radioButtonCred.text.toString()
+        }
+
+
         val orderPrice: EditText = findViewById(R.id.priceInput);
         val tipAmount: EditText = findViewById(R.id.tipInput);
+        val cashTipAmount: EditText = findViewById(R.id.cashTipInput);
+
 
         var text = ""
 
-        if(orderType == "Cash"){
-            text = "DATE:" + dateValue + ":ADDRESS:" + address.text  + ":OTYPEM:" + orderType + ":OPRICEM:" + orderPrice.text +
-                    ":TIPM:" + tipAmount.text + ":CHARGE:" +
+        if (orderType == "Cash") {
+            text = "DATE:" + dateValue + ":ADDRESS:" + address.text + ":OTYPEM:" + orderType + ":OPRICEM:" + orderPrice.text +
+                    ":TIPC:" + tipAmount.text + ":TIPM:" + cashTipAmount.text  + ":CHARGE:" +
                     deliveryCharge.text + ":STOP:" + ":END:"
-        } else if(orderType == "Credit") {
-            text = "DATE:" + dateValue + ":ADDRESS:" + address.text  + ":OTYPEC:" + orderType + ":OPRICEC:" + orderPrice.text +
-                    ":TIPC:" + tipAmount.text + ":CHARGE:" +
-                    deliveryCharge.text + ":STOP:" + ":END:"
+        } else if (orderType == "Credit") {
+            text = "DATE:" + dateValue + ":ADDRESS:" + address.text + ":OTYPEC:" + orderType + ":OPRICEC:" + orderPrice.text +
+                    ":TIPC:" + tipAmount.text + ":TIPM:" + cashTipAmount.text + ":CHARGE:" +
+                    deliveryCharge.text + ":STOP:" + ":END:";
         }
 
-        if(dateValue == "" || address.text.toString() == "" || deliveryCharge.text.toString() == "" || orderPrice.text.toString() == "" ||
-                tipAmount.text.toString() == "") {
-            fillToastMsg("Fill out all fields");
-
+        if (dateValue == "" || address.text.toString() == "" || deliveryCharge.text.toString() == "" || orderPrice.text.toString() == "" ||
+                cashTipAmount.text.toString() == "" || cashTipAmount.text.toString() == "" || (!radioButtonCash.isChecked && !radioButtonCred.isChecked)) {
+                fillToastMsg("Fill out all fields");
         }
-        else{
+        else {
             savedToastMsg("Added Item to Log");
+            address.setText("")
+            orderPrice.setText("")
+            tipAmount.setText("0")
+            cashTipAmount.setText("0")
+            radioButtonCash.isChecked = false;
+            radioButtonCash.isClickable = true;
+            radioButtonCred.isChecked = false;
+            radioButtonCred.isClickable = true;
             writeToFile(text, applicationContext)
+
         }
+
+//        if(dateValue == "" || address.text.toString() == "" || deliveryCharge.text.toString() == "" || orderPrice.text.toString() == "" ||
+//                tipAmount.text.toString() == "" || (!radioButtonCash.isChecked && !radioButtonCred.isChecked)) {
+//            fillToastMsg("Fill out all fields");
 
     }
 
@@ -265,7 +304,7 @@ class MainActivity : AppCompatActivity() {
                 context.openFileOutput(
                     "config.txt",
                     Context.MODE_APPEND
-                    //Context.MODE_PRIVATE
+                   // Context.MODE_PRIVATE
                 )
             )
             outputStreamWriter.write(data)
@@ -286,7 +325,17 @@ class MainActivity : AppCompatActivity() {
         filltoast.show()
     }
 
+    private fun hideCashLayout() {
+        val creditTipLayout: LinearLayout = findViewById(R.id.creditTipLayout);
+        creditTipLayout.visibility = View.GONE
+    }
+
+    private fun showCashLayout() {
+        val creditTipLayout: LinearLayout = findViewById(R.id.creditTipLayout);
+        creditTipLayout.visibility = View.VISIBLE
+    }
 
 
 
 }
+

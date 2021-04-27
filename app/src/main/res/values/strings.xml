@@ -2,6 +2,9 @@
     <string name="app_name">Tip Tracker</string>
     <string name="view_log">View Log</string>
 
+    <string name="credit_type">Credit</string>
+    <string name="cash_type">Cash</string>
+
     <string-array name="typeArray">
         <item>Credit</item>
         <item>Cash</item>
