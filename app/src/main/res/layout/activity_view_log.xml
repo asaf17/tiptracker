@@ -8,8 +8,6 @@
     tools:context=".MainActivity">
 
 
-
-
     <TextView
         android:id="@+id/deliveriesText"
         android:layout_width="match_parent"
@@ -25,8 +23,6 @@
         android:text="Deliveries:" />
 
 
-
-
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="175dp"
@@ -37,27 +33,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal">
 
-        <TextView
-            android:id="@+id/values"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:background="@color/white"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textAlignment="textStart"/>
+                <TextView
+                    android:id="@+id/values"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/white"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"/>
 
-    </LinearLayout>
+            </LinearLayout>
         </ScrollView>
-        </HorizontalScrollView>
+    </HorizontalScrollView>
 
 
     <LinearLayout
@@ -289,12 +285,6 @@
             android:singleLine="true" />
 
     </LinearLayout>
-
-
-
-
-
-
 </LinearLayout>
 
 

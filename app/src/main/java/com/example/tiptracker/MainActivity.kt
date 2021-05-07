@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         verifyStoragePermissions(this)
         loadFile()
 
-        val viewLogButton: Button = findViewById(R.id.viewLog)
+        val viewLogButton: Button = findViewById(R.id.viewLogButton)
         viewLogButton.setOnClickListener(View.OnClickListener {
             viewLogButtonClick();
         })
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             saveFile();
         })
 
-        val dateTest = findViewById<View>(R.id.dateText) as EditText
+        val dateTest = findViewById<View>(R.id.dateEditText) as EditText
         val sdf = SimpleDateFormat("MM/dd/yyyy")
         dateTest.setText(sdf.format(Date()))
 
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun loadFile() {
         val text = readFromFile(applicationContext)
-        val date = findViewById<TextView>(R.id.dateText);
+        val date = findViewById<TextView>(R.id.dateEditText);
         parseText(text)
     }
 
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
     private fun viewLogButtonClick(){
         val intent = Intent(this, ViewLog::class.java).apply {
         }
-        val date = findViewById<TextView>(R.id.dateText);
+        val date = findViewById<TextView>(R.id.dateEditText);
         intent.putExtra("date", date.text.toString())
         startActivity(intent)
     }
@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun parseText(fileText: String) {
 
-        val date = findViewById<TextView>(R.id.dateText);
+        val date = findViewById<TextView>(R.id.dateEditText);
         val dateString = date.text.toString()
 
         val regex = Regex("DATE:"+dateString+":(.*?):END:")
@@ -224,7 +224,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateLabel() {
-        val dateText = findViewById<View>(R.id.dateText) as EditText
+        val dateText = findViewById<View>(R.id.dateEditText) as EditText
         val myFormat = "MM/dd/yyyy" //In which you need put here
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         dateText.setText(sdf.format(myCalendar.getTime()))
@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun saveFile() {
-        val date = findViewById<TextView>(R.id.dateText);
+        val date = findViewById<TextView>(R.id.dateEditText);
         val dateValue: String = date.text.toString()
         val address: EditText = findViewById(R.id.addressInput);
         val deliveryCharge: EditText = findViewById(R.id.ratePerDeliveryInput);
@@ -327,11 +327,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideCashLayout() {
         val creditTipLayout: LinearLayout = findViewById(R.id.creditTipLayout);
+        val cashTipEdit: EditText = findViewById(R.id.cashTipInput);
+        val creditTipEdit: EditText = findViewById(R.id.tipInput);
+        cashTipEdit.setText("")
+        creditTipEdit.setText("0")
         creditTipLayout.visibility = View.GONE
     }
 
     private fun showCashLayout() {
         val creditTipLayout: LinearLayout = findViewById(R.id.creditTipLayout);
+        val creditTipEdit: EditText = findViewById(R.id.tipInput);
+        val cashTipEdit: EditText = findViewById(R.id.cashTipInput);
+        cashTipEdit.setText("0")
+        creditTipEdit.setText("")
         creditTipLayout.visibility = View.VISIBLE
     }
 
